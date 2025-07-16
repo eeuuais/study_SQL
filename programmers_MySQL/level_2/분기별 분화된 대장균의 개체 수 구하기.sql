@@ -1,0 +1,14 @@
+SELECT 
+    CONCAT(QUARTER(DIFFERENTIATION_DATE), 'Q') QUARTER,
+    COUNT(ID) ECOLI_COUNT
+FROM ECOLI_DATA
+GROUP BY CONCAT(QUARTER(DIFFERENTIATION_DATE), 'Q')
+ORDER BY CONCAT(QUARTER(DIFFERENTIATION_DATE), 'Q');
+
+
+/* 오답노트
+'분화된' 대장균의 개체 총 수를 출력하라고 해서 
+처음엔 PARENT_ID가 NULL인 값만 필터링했는데 
+애초에 테이블에 있는 모든 값은 분화된 대장균 개체였음
+문제를 잘 읽자.
+*/

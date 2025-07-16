@@ -1,0 +1,9 @@
+-- (GENOTYPE & PARENT_GENOTYPE) = PARENT_GENOTYPE 조건을 만족해야 함
+-- 부모와 자식 정보가 같은 테이블에 있기 때문에 
+-- 부모 정보를 따로 뽑으려면 자기 자신과 조인 필요
+
+SELECT A.ID, A.GENOTYPE, B.GENOTYPE PARENT_GENOTYPE
+FROM ECOLI_DATA A
+JOIN ECOLI_DATA B ON A.PARENT_ID = B.ID
+WHERE (A.GENOTYPE & B.GENOTYPE) = B.GENOTYPE -- 비트연산자로 비교
+ORDER BY A.ID;
