@@ -1,0 +1,13 @@
+
+/*
+-- RIGHT OUTER JOIN 
+    왼쪽 테이블의 모든 행과 오른쪽 테이블의 일치하는 행을 반환합니다.
+    오른쪽 테이블에 일치하는 행이 없는 경우 NULL로 채워집니다.
+*/  
+
+SELECT B.ANIMAL_ID, B.NAME
+FROM ANIMAL_INS A
+RIGHT OUTER JOIN ANIMAL_OUTS B
+ON A.ANIMAL_ID = B.ANIMAL_ID
+WHERE A.ANIMAL_ID IS NULL
+ORDER BY B.ANIMAL_ID
