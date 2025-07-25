@@ -1,0 +1,6 @@
+SELECT CART_ID
+FROM CART_PRODUCTS
+WHERE NAME IN ('Milk', 'Yogurt')
+GROUP BY CART_ID
+HAVING COUNT(DISTINCT NAME) = 2 -- 둘 다 포함된 장바구니만 선택 (두 제품이 모두 있어야 하므로 2)
+ORDER BY CART_ID;
