@@ -1,0 +1,17 @@
+SELECT * FROM (
+    SELECT C.CAR_ID,
+           C.CAR_TYPE,
+           ROUND(C.DAILY_FEE * 30 * (100 - P.DISCOUNT_RATE)/100) AS FEE -- 30일 대여 시 할인 적용 요금을 계산
+    FROM CAR_RENTAL_COMPANY_CAR AS C
+    JOIN CAR_RENTAL_COMPANY_DISCOUNT_PLAN AS P
+    ON C.CAR_TYPE = P.CAR_TYPE 
+    AND P.DURATION_TYPE = '30일 이상'
+    WHERE C.CAR_TYPE IN ('세단', 'SUV') -- 세단/SUV 차량 중
+    AND C.CAR_ID NOT IN (
+            SELECT CAR_ID
+            FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+            WHERE END_DATE >= '2022-11-01' AND START_DATE <= '2022-11-30' -- 11월에 대여되지 않은 차량을 고르고
+        )
+) AS Sub -- 내부 서브쿼리의 결과를 Sub이라는 임시테이블처럼 다루기
+WHERE FEE >= 500000 AND FEE < 2000000
+ORDER BY FEE DESC, CAR_TYPE ASC, CAR_ID DESC;
